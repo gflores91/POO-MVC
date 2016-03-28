@@ -2,7 +2,7 @@
 
   function Categorias(){
     $db = new Conexion();
-    $sql = $db->query("SELECT * FROM categorias;");
+    $sql = $db->query("SELECT categoriaid,categorianombre FROM categorias;");
 
     if ($db->rows($sql) > 0) {
       while ($data = $db->recorrer($sql)) {

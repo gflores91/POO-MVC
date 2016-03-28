@@ -57,8 +57,8 @@
 									 </div>
 
                    <div class="btn-group btn-group-lg">
-											<a href="?view=categorias&mode=create" class="btn btn-primary">
-												Crear Categoria
+											<a href="?view=foros&mode=create" class="btn btn-primary">
+												Crear Foro
 											</a>
 									 </div>
 
@@ -81,7 +81,7 @@
 
 							<div class="panel panel-primary">
 							  <div class="panel-heading">
-							    <h3 class="panel-title">Gestion de categorias</h3>
+							    <h3 class="panel-title">Gestion de foros</h3>
 							  </div>
 							  <div class="panel-body">
 
@@ -92,7 +92,7 @@
 
                       <?php
 
-                      if (false != $_categorias) {
+                      if (false != $_foros) {
                         $table=
                         '
                         <table class="table">
@@ -101,8 +101,20 @@
                               id
                             </th>
                             <th>
-                              Nombre Categoria
+                              Nombre Foro
                             </th>
+														<th>
+															Mensajes
+														</th>
+														<th>
+															Temas
+														</th>
+														<th>
+															Categoria
+														</th>
+														<th>
+															Estado
+														</th>
                             <th>
 
                             </th>
@@ -110,24 +122,39 @@
 
                           <tbody>
                         ';
-                        foreach ($_categorias as $categoriaid => $ccontent) {
+                        foreach ($_foros as $foroid => $fcontent) {
+
+													$estado = $_foros[$foroid]['estado'] == 1 ? 'Abierto' : 'Cerrado';
+
                           $table .=
                           '
                           <tr>
                             <td>
-                              '.$_categorias[$categoriaid]['id'].'
+                              '.$_foros[$foroid]['id'].'
                             </td>
                             <td>
-                              '.$_categorias[$categoriaid]['nombre'].'
+                              '.$_foros[$foroid]['nombre'].'
                             </td>
+														<td>
+															'.$_foros[$foroid]['cmensajes'].'
+														</td>
+														<td>
+															'.$_foros[$foroid]['ctemas'].'
+														</td>
+														<td>
+															'.$_categorias[$_foros[$foroid]['catid']]['nombre'].'
+														</td>
+														<td>
+															'.$estado.'
+														</td>
                             <td>
                               <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Elija una accion <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                  <li><a href="?view=categorias&mode=edit&id='.$_categorias[$categoriaid]['id'].'">Editar</a></li>
-                                  <li><a onclick="DeleteItem(\'¿Esta seguro que desea eliminar?\',\'?view=categorias&mode=delete&id='.$_categorias[$categoriaid]['id'].'\')">Eliminar</a></li>
+                                  <li><a href="?view=foros&mode=edit&id='.$_foros[$foroid]['id'].'">Editar</a></li>
+                                  <li><a onclick="DeleteItem(\'¿Esta seguro que desea eliminar?\',\'?view=foros&mode=delete&id='.$_foros[$foroid]['id'].'\')">Eliminar</a></li>
                                 </ul>
                               </div>
                             </td>
@@ -144,7 +171,7 @@
                         $table=
                         '
                         <div class="alert alert-dismissible alert-info">
-                          <strong>Lo sentimos</strong> primero debe crear una categoria.
+                          <strong>Lo sentimos</strong> primero debe crear un foro.
                         </div>
                         ';
                       }
