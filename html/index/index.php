@@ -66,47 +66,124 @@
 				<!--/Links administrador-->
 
 
+				<?php
 
-				<!--Categorias-->
-				<?php for ($x=1; $x < 4; $x++) {  ?>
-				<div class="row">
-					<div class="12u">
-						<section>
+					if (false!=$_categorias) {
+						#Sentencia sql preparada
+							$sql = $db->prepare("SELECT foroid FROM foros
+																	WHERE forocatid=?;");
+							$sql->bind_param('i',$idcategoria);
+						?>
+						<!--Categorias-->
+						<div class="row">
+							<div class="12u">
+								<section>
 
-							<div class="panel panel-primary">
-							  <div class="panel-heading">
-							    <h3 class="panel-title">Titulo categoria</h3>
-							  </div>
-							  <div class="panel-body">
+									<?php foreach ($_categorias as $categoriaid => $ccontent){
+											$idcategoria = $categoriaid;
+											$sql->execute();
+											#Almacena el resultado de sql preparado
+											$sql->store_result();
+										 ?>
+										 <div class="panel panel-primary">
+											 <div class="panel-heading">
+												 <h3 class="panel-title"><?php echo $_categorias[$idcategoria]['nombre']; ?></h3>
+											 </div>
+											 <div class="panel-body">
 
-									<?php for ($i=1; $i < 5; $i++) {		?>
+											<!--verifica si hay resultados-->
+										 <?php if ($sql->num_rows > 0):
+											 $sql->bind_result($idforo);
+											 ?>
+											 <!--Foros-->
+											 <?php while ($sql->fetch()) { ?>
+											 <div class="row">
+												 <div class="1u">
+													 <?php if ($_foros[$idforo]['estado'] == 1): ?>
+														 <i class="fa fa-th-list fa-2x"></i>
+														 <?php else: ?>
+															 <i class="fa fa-lock fa-2x"></i>
+													 <?php endif; ?>
+												 </div>
+												 <div class="7u">
 
-									<div class="row">
-										<div class="8u">
-											Titulo Foro
+													 <!--Debe ser cambiado para los foros-->
+													 <a href="temas/<?php echo Url($idforo,$_foros[$idforo]['nombre']); ?>">
+													 <?php echo $_foros[$idforo]['nombre']; ?></a> <br>
+
+													 <?php echo $_foros[$idforo]['desc']; ?>
+												 </div>
+
+												 <div class="2u">
+													 <?php echo $_foros[$idforo]['ctemas']; ?> Temas <br />
+													 <?php echo $_foros[$idforo]['cmensajes']; ?> Mensajes
+												 </div>
+
+												 <div class="2u">
+													 Ultimo mensaje
+												 </div>
+											 </div>
+											 <?php  } ?>
+
+										 <?php else: ?>
+
+											 <div class="row">
+ 												<div class="12u">
+ 													<div class="alert alert-info" role="alert">
+ 														<strong>Lo sentimos</strong> Aun no se han creado foros.
+ 													</div>
+ 												</div>
+												<!--/Foros-->
+											</div>
+
+
+										 <?php endif; ?>
+
+											</div>
 										</div>
 
-										<div class="2u">
-											XX Temas <br />
-											XX Mensajes
-										</div>
+									<?php
+									}
+									$sql->close();
 
-										<div class="2u">
-											Ultimo mensaje
+										 ?>
+
+								</section>
+							</div>
+						</div>
+						<!--./Categorias-->
+
+					<?php } else { ?>
+						<!--Sin Categorias-->
+						<div class="row">
+							<div class="12u">
+								<section>
+
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h3 class="panel-title">Titulo categoria</h3>
+										</div>
+										<div class="panel-body">
+
+											<div class="row">
+												<div class="12u">
+													<div class="alert alert-info" role="alert">
+														<strong>Lo sentimos</strong> Aun no se han creado categorias.
+													</div>
+												</div>
+											</div>
+
+
 										</div>
 									</div>
 
-									<?php }  ?>
-
-
-							  </div>
+								</section>
 							</div>
-
-						</section>
-					</div>
-				</div>
-				<?php } ?>
-				<!--./Categorias-->
+						</div>
+						<!--./Sin Categorias-->
+					<?php
+						}
+				  ?>
 
 			</div>
 			<!-- Main -->

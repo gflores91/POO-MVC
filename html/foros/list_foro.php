@@ -3,8 +3,6 @@
 
 <?php include(HTML_DIR.'layouts/topnav.php'); ?>
 
-
-
 	<!-- Main -->
 		<div id="page">
 			<?php
@@ -45,16 +43,16 @@
 								<section>
 
 									<div class="btn-group btn-group-lg">
+										 <a href="?view=categorias" class="btn btn-primary">
+											 Gestionar Categorias
+										 </a>
+									</div>
+
+									<div class="btn-group btn-group-lg">
 										 <a href="?view=foros" class="btn btn-primary">
  											 Gestionar Foros
 										 </a>
 								 	 </div>
-
-									 <div class="btn-group btn-group-lg">
-											<a href="?view=categorias" class="btn btn-primary">
-												Gestionar Categorias
-											</a>
-									 </div>
 
                    <div class="btn-group btn-group-lg">
 											<a href="?view=foros&mode=create" class="btn btn-primary">

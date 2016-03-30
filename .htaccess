@@ -8,3 +8,7 @@
 Order allow,deny
 Deny from all
 </Files>
+
+RewriteEngine on
+RewriteRule ^foros/([0-9]+)\-([a-zA-Z0-9-]*)$ index.php?view=foros&id=$1
+RewriteRule ^temas/([0-9]+)\-([a-zA-Z0-9-]*)$ index.php?view=temas&id=$1
