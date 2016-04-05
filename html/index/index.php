@@ -35,9 +35,24 @@
 			<!-- Main -->
 			<div id="main" class="container">
 
+				<!--Links de navegacion-->
+				<div class="row">
+					<div class="12u">
+
+							<ul class="breadcrumb">
+								<li class="active"><a href="?view=index">Inicio</a></li>
+							</ul>
+
+					</div>
+				</div>
+				<!--./Links de navegacion-->
+
 				<!--Links administrador-->
+
 				<?php if (isset($_SESSION['session_id'])
-							and $_users[$_SESSION['session_id']]['permisos'] = 2): ?>
+							and $_users[$_SESSION['session_id']]['permisos'] == 2):
+							#Permisos 0=usuario normal; 1= moderador; 2= Administrador
+				 ?>
 
 						<div class="row">
 						 <div class="pull-right">
@@ -115,8 +130,8 @@
 												 </div>
 
 												 <div class="2u">
-													 <?php echo $_foros[$idforo]['ctemas']; ?> Temas <br />
-													 <?php echo $_foros[$idforo]['cmensajes']; ?> Mensajes
+													 <?php echo number_format($_foros[$idforo]['ctemas'],0,',','.'); ?> Temas <br />
+													 <?php echo number_format($_foros[$idforo]['cmensajes'],0,',','.'); ?> Mensajes
 												 </div>
 
 												 <div class="2u">

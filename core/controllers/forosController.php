@@ -1,7 +1,7 @@
 <?php
 
   if (isset($_SESSION['session_id'])
-        and $_users[$_SESSION['session_id']]['permisos'] = 2) {
+        and $_users[$_SESSION['session_id']]['permisos'] == 2) {
 
     require('core/models/Foros.class.php');
 
@@ -9,7 +9,7 @@
     $isset_id = isset($_GET['id']) and is_numeric($_GET['id']) and $_GET['id'] >= 1;
     $foros = new Foros();
 
-    switch (isset($_GET['mode']) ?$_GET['mode'] : null) {
+    switch (isset($_GET['mode']) ? $_GET['mode'] : null) {
       case 'create':
         if ($_POST) {
           $foros->Create();

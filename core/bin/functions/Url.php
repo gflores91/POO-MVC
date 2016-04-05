@@ -4,8 +4,14 @@
 #esto utiliza las reglas impuestas en htaccess
 #resultado = link/0-nombre-del-link
 
-  function Url($id,$title){
-    $title = $id . '-'. $title;
+  function Url($id,$title,$foroid = null){
+
+    if (null == $foroid) {
+      $title = $id . '-'. $title;
+    } else {
+      $title = $id .'-'. $foroid .'-'. $title;
+    }
+
     $title = trim($title);
 
      $title = str_replace(

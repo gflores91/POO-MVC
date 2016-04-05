@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<base href="<?php APP_URL; ?>" />
+		<base href="<?php echo APP_URL; ?>" />
 		<title><?php echo APP_TITLE; ?></title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
