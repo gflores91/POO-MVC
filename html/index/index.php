@@ -1,9 +1,8 @@
 <?php include(HTML_DIR.'layouts/header.php'); ?>
+
 	<body class="homepage">
 
 <?php include(HTML_DIR.'layouts/topnav.php'); ?>
-
-
 
 	<!-- Main -->
 		<div id="page">
@@ -30,19 +29,15 @@
 
 			 ?>
 
-
-
 			<!-- Main -->
 			<div id="main" class="container">
 
 				<!--Links de navegacion-->
 				<div class="row">
 					<div class="12u">
-
 							<ul class="breadcrumb">
-								<li class="active"><a href="?view=index">Inicio</a></li>
+								<li class="active"><i class="fa fa-home"></i><a href="?view=index">Inicio</a></li>
 							</ul>
-
 					</div>
 				</div>
 				<!--./Links de navegacion-->
@@ -80,15 +75,15 @@
 				<?php endif; ?>
 				<!--/Links administrador-->
 
-
 				<?php
 
 					if (false!=$_categorias) {
 						#Sentencia sql preparada
-							$sql = $db->prepare("SELECT foroid FROM foros
+						$sql = $db->prepare("SELECT foroid FROM foros
 																	WHERE forocatid=?;");
-							$sql->bind_param('i',$idcategoria);
-						?>
+						$sql->bind_param('i',$idcategoria);
+				?>
+
 						<!--Categorias-->
 						<div class="row">
 							<div class="12u">
@@ -135,7 +130,14 @@
 												 </div>
 
 												 <div class="2u">
-													 Ultimo mensaje
+													 <?php
+													 if (empty($_foros[$idforo]['utema'])) {
+													 	$utema = '<a href="#">Sin temas</a>';
+													 } else {
+														$utema = '<a href="dtema/'.Url($_foros[$idforo]['idutema'],$_foros[$idforo]['utema'],$idforo).'">'.$_foros[$idforo]['utema'].'</a>';
+													 }
+													 echo $utema;
+													 ?>
 												 </div>
 											 </div>
 											 <?php  } ?>

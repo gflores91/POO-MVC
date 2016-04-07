@@ -1,6 +1,7 @@
 <?php
+  $db = new Conexion();
 
-$db = new Conexion();
-include(HTML_DIR.'index/index.php');
-$db->close();
+  include(HTML_DIR.'index/index.php');
+
+  $db->close();
  ?>

@@ -79,7 +79,9 @@
 
         $this->db->query("UPDATE foros
                           SET foroctemas=foroctemas + '1',
-                          forocmensajes = forocmensajes + '1'
+                          forocmensajes = forocmensajes + '1',
+                          foroutema = '$this->titulo',
+                          foroidutema = '$uid'
                           WHERE foroid = '$this->foroid'
                           ;"
                         );

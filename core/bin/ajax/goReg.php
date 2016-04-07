@@ -43,15 +43,18 @@
         <button type="button" class="close" data-dismiss="alert">x</button>
         <strong>Error:</strong> ' . $mail->ErrorInfo . ' </div>';
     } else {
+      $userfregistro = date('d/m/Y', time());
       $db->query("INSERT INTO users (
                                     username,
                                     useremail,
                                     userpass,
-                                    userkey)
+                                    userkey,
+                                    userfregistro)
                             VALUES ('$user',
                                     '$email',
                                     '$pass',
-                                    '$userkey');
+                                    '$userkey',
+                                    '$userfregistro');
                                     ");
 
       $sql2 = $db->query("SELECT MAX(userid) AS userid

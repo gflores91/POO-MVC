@@ -8,7 +8,9 @@
                               forocmensajes,
                               foroctemas,
                               forocatid,
-                              foroestado
+                              foroestado,
+                              foroutema,
+                              foroidutema
                         FROM foros;");
 
     if ($db->rows($sql) > 0) {
@@ -20,7 +22,9 @@
           'cmensajes' => $data['forocmensajes'],
           'ctemas' => $data['foroctemas'],
           'catid' => $data['forocatid'],
-          'estado' => $data['foroestado']
+          'estado' => $data['foroestado'],
+          'utema' => $data['foroutema'],
+          'idutema' => $data['foroidutema']
          );
       }
     } else {
