@@ -13,12 +13,15 @@
       private $foroid;
       private $userid;
 
+      private $seguridad;
+
       public function __construct()
       {
         $this->db = new Conexion();
         $this->id = isset($_GET['id']) ? intval($_GET['id']) : null;
         $this->foroid = intval($_GET['idforo']);
         $this->userid = isset($_SESSION['session_id']) ? $_SESSION['session_id'] : null;
+        $this->seguridad = new Seguridad();
       }
 
       public function Checktema(){
@@ -136,8 +139,14 @@
             throw new Exception(1);
           }
           else {
-            $this->titulo = $this->db->real_escape_string($_POST['titulo']);
-            $this->contenido = $this->db->real_escape_string($_POST['contenido']);
+            $this->titulo = $this->seguridad->XSS(
+                            $this->db->real_escape_string($_POST['titulo'])
+                            );
+
+            $this->contenido = $this->seguridad->XSS(
+                               $this->db->real_escape_string($_POST['contenido'])
+                               );
+
           }
 
           if (strlen($this->titulo) < 9) {

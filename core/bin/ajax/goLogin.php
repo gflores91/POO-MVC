@@ -8,7 +8,7 @@
 
     $sql = $db->query("SELECT userid FROM users
                       WHERE (username='$user' OR useremail='$user')
-                      AND userpass='$pass'");
+                      AND userpass='$pass' AND useractive=1;");
 
     if ($db->rows($sql) > 0) {
       if ($_POST['sesion']) {
@@ -23,7 +23,7 @@
       }
     } else {
       echo '<div class="alert alert-dismissible alert-danger">
-      <strong>Error</strong> Los datos ingresados son incorrectos.
+      <strong>Error</strong> Los datos ingresados son incorrectos o no ha activado su usuario.
       </div>';
      }
     $db->liberar($sql);

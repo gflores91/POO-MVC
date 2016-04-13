@@ -12,7 +12,7 @@
 			<div id="main" class="container">
 
 				<!--Links administrador-->
-				<?php if (isset($_SESSION['session_id']) ): ?>
+				<?php if (isset($_SESSION['session_id']) and $_SESSION['session_id'] == $_GET['id'] ): ?>
 
 						<div class="row">
 						 <div class="pull-right">

@@ -10,11 +10,21 @@
         $_SESSION['users'][$userid]['uconexion'] = $time;
 
         $db = new Conexion();
-        $db->query(" UPDATE users
-                     SET useruconexion = '$time'
-                     WHERE userid = '$userid'
-                     LIMIT 1
-                  ;");
+
+        $mquery =" UPDATE users
+                   SET useruconexion = '$time'
+                   WHERE userid = '$userid'
+                   LIMIT 1
+                  ;";
+
+        $mquery .="UPDATE configuracion
+                   SET configuraciontimer = '$time'
+                   WHERE configuracionid = '1'
+                   LIMIT 1
+                  ;";
+
+        $db->multi_query($mquery);
+
         $db->close();
       }
     }

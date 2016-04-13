@@ -11,75 +11,37 @@
                      WHERE username='$user' OR useremail='$email' LIMIT 1;
                      ");
 
+  $sql_limite = $db->query("SELECT userid FROM users;");
 
-  if($db->rows($sql) == 0) {
-    $userkey = md5(time());
-    $url = APP_URL . '?view=activar&key=' . $userkey;
+  if ($db->rows($sql_limite) < 3) {
+    if($db->rows($sql) == 0) {
+      $userkey = md5(time());
+      $url = APP_URL . '?view=activar&key=' . $userkey;
 
-    #Correo electronico
-    $mail = new PHPMailer;
-    $mail->CharSet = "UTF-8";
-    $mail->Encoding = "quoted-printable";
+      //llama a la funcion para enviar email (functions/SendEmail.php)
+      $alert= SendEmail($user,$email,$pass,$userkey,$url);
 
-    $mail->isSMTP();
+    } else {
+      $usuario = $db->recorrer($sql)[0];
 
-    $mail->Host = MAIL_HOST;
-    $mail->SMTPAuth = true;
-    $mail->Username = MAIL_USER;
-    $mail->Password = MAIL_PASS;
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port = MAIL_PORT;
-
-    $mail->setFrom(MAIL_USER, APP_TITLE);
-    $mail->addAddress($email, $user);
-    $mail->isHTML(true);
-
-    $mail->Subject = 'Activación de tu cuenta';
-    $mail->Body    = EmailTemplate($user,$url);
-    $mail->AltBody = 'Estimado ' . $user . ' para activar su cuenta haga click en el siguiente enlace: ' . $url;
-
-    if(!$mail->send()) {
+      if(strtolower($user) == strtolower($usuario)){
         $alert = '<div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">x</button>
-        <strong>Error:</strong> ' . $mail->ErrorInfo . ' </div>';
-    } else {
-      $userfregistro = date('d/m/Y', time());
-      $db->query("INSERT INTO users (
-                                    username,
-                                    useremail,
-                                    userpass,
-                                    userkey,
-                                    userfregistro)
-                            VALUES ('$user',
-                                    '$email',
-                                    '$pass',
-                                    '$userkey',
-                                    '$userfregistro');
-                                    ");
-
-      $sql2 = $db->query("SELECT MAX(userid) AS userid
-                          FROM users;");
-      $_SESSION['session_id'] = $db->recorrer($sql2)[0];
-      $db->liberar($sql2);
-      $alert = 1;
+        <strong>Error:</strong> El usuario ya existe.
+        </div>';
+      } else {
+        $alert = '<div class="alert alert-dismissible alert-danger">
+        <strong>Error:</strong> El email ya existe.
+        </div>';
+      }
     }
+
   } else {
-    $usuario = $db->recorrer($sql)[0];
-
-    if(strtolower($user) == strtolower($usuario)){
-      $alert = '<div class="alert alert-dismissible alert-danger">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Error:</strong> El usuario ya existe.
-      </div>';
-    } else {
-      $alert = '<div class="alert alert-dismissible alert-danger">
-      <button type="button" class="close" data-dismiss="alert">x</button>
-      <strong>Error:</strong> El email ya existe.
-      </div>';
-    }
+    $alert = '<div class="alert alert-dismissible alert-danger">
+    <strong>Error:</strong> Limite de usuarios alcanzado.
+    </div>';
   }
 
-  $db->liberar($sql);
+  $db->liberar($sql,$sql_limite);
   $db->close();
 
   echo $alert;

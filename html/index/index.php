@@ -6,8 +6,8 @@
 
 	<!-- Main -->
 		<div id="page">
+			<!--Mensajes-->
 			<?php
-
 				if (isset($_GET[success])) {
 					echo
 					'
@@ -26,8 +26,8 @@
 						</div>
 						</div>';
 					}
-
 			 ?>
+			 <!--/Mensajes-->
 
 			<!-- Main -->
 			<div id="main" class="container">
@@ -43,9 +43,9 @@
 				<!--./Links de navegacion-->
 
 				<!--Links administrador-->
-
 				<?php if (isset($_SESSION['session_id'])
-							and $_users[$_SESSION['session_id']]['permisos'] == 2):
+							and $_users[$_SESSION['session_id']]['permisos'] == 2
+							and $_users[$_SESSION['session_id']]['activo'] == 1):
 							#Permisos 0=usuario normal; 1= moderador; 2= Administrador
 				 ?>
 
@@ -115,12 +115,10 @@
 															 <i class="fa fa-lock fa-2x"></i>
 													 <?php endif; ?>
 												 </div>
-												 <div class="7u">
 
-													 <!--Debe ser cambiado para los foros-->
+												 <div class="7u">
 													 <a href="temas/<?php echo Url($idforo,$_foros[$idforo]['nombre']); ?>">
 													 <?php echo $_foros[$idforo]['nombre']; ?></a> <br>
-
 													 <?php echo $_foros[$idforo]['desc']; ?>
 												 </div>
 
@@ -141,6 +139,7 @@
 												 </div>
 											 </div>
 											 <?php  } ?>
+											 <!--/Foros-->
 
 										 <?php else: ?>
 
@@ -150,9 +149,7 @@
  														<strong>Lo sentimos</strong> Aun no se han creado foros.
  													</div>
  												</div>
-												<!--/Foros-->
 											</div>
-
 
 										 <?php endif; ?>
 
@@ -189,7 +186,6 @@
 													</div>
 												</div>
 											</div>
-
 
 										</div>
 									</div>

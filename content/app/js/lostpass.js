@@ -22,7 +22,6 @@ function goLostpass() {
         }
       } else if(connect.readyState != 4) {
         result = '<div class="alert alert-dismissible alert-warning">';
-        result += '<button type="button" class="close" data-dismiss="alert">x</button>';
         result += '<h4>Procesando...</h4>';
         result += '<p><strong>Estamos enviando un correo....</strong></p>';
         result += '</div>';
@@ -34,7 +33,6 @@ function goLostpass() {
     connect.send(form);
   } else {
     result = '<div class="alert alert-dismissible alert-danger">';
-    result += '<button type="button" class="close" data-dismiss="alert">x</button>';
     result += '<h4>Error</h4>';
     result += '<p><strong>Los campos no deben estar vacios.</strong></p>';
     result += '</div>';

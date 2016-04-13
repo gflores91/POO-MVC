@@ -28,7 +28,6 @@ function goReg() {
             }
           } else if(connect.readyState != 4) {
             result = '<div class="alert alert-dismissible alert-warning">';
-            result += '<button type="button" class="close" data-dismiss="alert">x</button>';
             result += '<h4>Procesando...</h4>';
             result += '<p><strong>Estamos intentando registrarte....</strong></p>';
             result += '</div>';
@@ -40,7 +39,6 @@ function goReg() {
         connect.send(form);
       } else {
         result = '<div class="alert alert-dismissible alert-danger">';
-        result += '<button type="button" class="close" data-dismiss="alert">x</button>';
         result += '<h4>Error</h4>';
         result += '<p><strong>Las contraseñas no coinciden</strong></p>';
         result += '</div>';
@@ -48,7 +46,6 @@ function goReg() {
       }
     } else {
       result = '<div class="alert alert-dismissible alert-danger">';
-      result += '<button type="button" class="close" data-dismiss="alert">x</button>';
       result += '<h4>Error</h4>';
       result += '<p><strong>Los campos se encuentran vacios</strong></p>';
       result += '</div>';
@@ -57,7 +54,6 @@ function goReg() {
 
   } else {
     result = '<div class="alert alert-dismissible alert-danger">';
-    result += '<button type="button" class="close" data-dismiss="alert">x</button>';
     result += '<h4>Error</h4>';
     result += '<p><strong>Los terminos y condiciones no fueron aceptados</strong></p>';
     result += '</div>';

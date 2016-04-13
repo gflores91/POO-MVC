@@ -62,7 +62,7 @@
           <div class="12u">
 
               <ul class="breadcrumb">
-                <li><a href="#">Temas</a></li>
+                <li class="active"> <i class="fa fa-comment"></i> <a href="?view=dtema&mode=create&idforo=<?php echo $foroid; ?>">Temas</a></li>
               </ul>
 
           </div>

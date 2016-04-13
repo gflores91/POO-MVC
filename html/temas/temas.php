@@ -40,8 +40,8 @@
 							<div class="12u">
 
                   <ul class="breadcrumb">
-                    <li><a href="?view=index">Inicio</a></li>
-                    <li class="active"><a href="temas/<?php echo Url($_GET['id'],$_foros[$_GET['id']]['nombre']); ?>"><?php echo $_foros[$foroid]['nombre']; ?></a></li>
+                    <li><a href="?view=index"> <i class="fa fa-home"></i>  Inicio</a></li>
+                    <li class="active"> <i class="fa fa-comments"></i> <a href="temas/<?php echo Url($_GET['id'],$_foros[$_GET['id']]['nombre']); ?>"><?php echo $_foros[$foroid]['nombre']; ?></a></li>
                   </ul>
 
 							</div>
@@ -97,8 +97,9 @@
 
                         <div class="row">
                           <div class="1u">
-                            <!--0= no leido; 1= leido-->
-                            <?php if ($anuncio['temaestado'] == 0): ?>
+                            <?php if ($anuncio['temaestado'] == 0):
+															#0= no leido; 1= leido
+ 														?>
                               <i class="fa fa-eye fa-2x"></i>
                             <?php else: ?>
                               <i class="fa fa-eye-slash fa-2x"></i>
@@ -115,7 +116,7 @@
                             <?php echo number_format($anuncio['temarespuestas'],0,',','.'); ?> Temas
                           </div>
                           <div class="2u">
-                            Por: <a href="#"> <?php  echo $_users[$anuncio['temauid']]['name'];?></a><br>
+                            Por: <a href="?view=perfil&id=<?php echo $anuncio['temauid']; ?>"> <?php  echo $_users[$anuncio['temauid']]['name'];?></a><br>
                             <?php  echo $anuncio[temafultimo];?>
                           </div>
                         </div>
@@ -168,7 +169,7 @@
                             <?php echo number_format($tema['temarespuestas'],0,',','.'); ?> Temas
                           </div>
                           <div class="2u">
-                            Por: <a href="#"> <?php  echo $_users[$tema['temauid']]['name'];?></a><br>
+                            Por: <a href="?view=perfil&id=<?php echo $tema['temauid']; ?>"> <?php  echo $_users[$tema['temauid']]['name'];?></a><br>
                             <?php  echo $tema[temafultimo];?>
                           </div>
                         </div>

@@ -2,6 +2,15 @@
 
   function Users(){
       $db = new Conexion();
+
+      $query = $db->query("SELECT configuraciontimer
+                           FROM configuracion
+                           WHERE configuracionid='1'
+                           LIMIT 1;");
+
+      $timer = $db->recorrer($query)[0];
+      $db->liberar($query);
+
       $sql = $db->query("SELECT userid,
                                 username,
                                 userpass,
@@ -19,14 +28,15 @@
                                 useredad,
                                 userfregistro,
                                 userbiografia
-                          FROM users");
+                          FROM users;");
       $users_actuales = $db->rows($sql);
 
       if (!isset($_SESSION['cantidad_users'])) {
         $_SESSION['cantidad_users'] = $users_actuales;
       }
 
-      if ($_SESSION['cantidad_users'] != $users_actuales) {
+      if ($_SESSION['cantidad_users'] != $users_actuales
+          or (time() -60) <= $timer ) {
         while ($d = $db->recorrer($sql)) {
           //Esto puede resumirse en $_users[$d['userid']]= $d;
           //pero lo tengo con nombres personalizados
@@ -35,6 +45,7 @@
             'name' => $d['username'],
             'pass' => $d['userpass'],
             'email' => $d['useremail'],
+            'activo' => $d['useractive'],
             'permisos' => $d['userrol'],
             'uconexion' => $d['useruconexion'],
             'nleidos' => $d['usernleidos'],
@@ -55,6 +66,7 @@
               'name' => $d['username'],
               'pass' => $d['userpass'],
               'email' => $d['useremail'],
+              'activo' => $d['useractive'],
               'permisos' => $d['userrol'],
               'uconexion' => $d['useruconexion'],
               'nleidos' => $d['usernleidos'],

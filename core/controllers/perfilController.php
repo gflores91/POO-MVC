@@ -1,6 +1,6 @@
 <?php
 
-  if (isset($_GET['id'],$_SESSION['session_id']) and array_key_exists($_GET['id'],$_users)) {
+  if (isset($_GET['id']) and array_key_exists($_GET['id'],$_users)) {
     $userid = intval($_GET['id']);
 
     $db = new Conexion();

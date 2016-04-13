@@ -12,10 +12,12 @@
     private $catid;
     private $estado;
 
+    private $seguridad;
 
     public function __construct()
     {
       $this->db = new Conexion();
+      $this->seguridad = new Seguridad();
     }
 
     public function Create()
@@ -66,7 +68,10 @@
     {
       $this->id = intval($_GET['id']);
 
-      $this->db->query("DELETE FROM foros WHERE foroid='$this->id';");
+      $mquery = "DELETE FROM foros WHERE foroid='$this->id';";
+      $mquery .= "DELETE FROM temas WHERE temaforoid='$this->id';";
+
+      $this->db->multi_query($mquery);
 
       header('location: ?view=foros');
 
@@ -83,15 +88,13 @@
         or !isset($_POST['estado']) ) {
           throw new Exception(1);
         }else {
-          $this->nombre = $this->db->real_escape_string($_POST['nombre']);
-          $this->desc = $this->db->real_escape_string($_POST['desc']);
-
-          #Evita ataques XSS,posible cambio para crear una funcion de seguridad
-          $this->descrip = str_replace(
-          array('<script>','</script>','<script src','<script type='),
-          '',
-          $this->descrip
-          );
+          $this->nombre = $this->seguridad->XSS(
+                          $this->db->real_escape_string($_POST['nombre'])
+                          );
+                          
+          $this->desc = $this->seguridad->XSS(
+                          $this->db->real_escape_string($_POST['desc'])
+                          );
 
           if ($_POST['estado'] == 1) {
             $this->estado = 1;

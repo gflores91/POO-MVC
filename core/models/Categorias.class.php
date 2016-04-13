@@ -9,9 +9,12 @@
     private $id;
     private $nombre;
 
+    private $seguridad;
+
     public function __construct()
     {
       $this->db = new Conexion();
+      $this->seguridad = new Seguridad();
     }
 
     public function Create()
@@ -52,10 +55,20 @@
     {
       $this->id = intval($_GET['id']);
 
-      $sql = "DELETE FROM categorias WHERE categoriaid='$this->id';";
-      $sql .= "DELETE FROM foros WHERE forocatid='$this->id';";
+      $mquery = "DELETE FROM categorias WHERE categoriaid='$this->id';";
+      $mquery .= "DELETE FROM foros WHERE forocatid='$this->id';";
 
-      $this->db->multi_query($sql);
+      $sql = $this->db->query("SELECT foroid FROM foros
+                               WHERE forocatid= '$this->id';");
+
+      if ($this->db->rows($sql) > 0) {
+        while ($d = $this->db->recorrer($sql)) {
+          $foroid = $d[0];
+          $mquery .= "DELETE FROM temas WHERE temaforoid = '$foroid';";
+        }
+      }
+      $this->db->liberar($sql);
+      $this->db->multi_query($mquery);
 
       header('location: ?view=categorias');
 
@@ -69,7 +82,9 @@
           throw new Exception(1);
         }
         else {
-          $this->nombre = $this->db->real_escape_string($_POST['nombre']);
+          $this->nombre = $this->seguridad->XSS(
+                          $this->db->real_escape_string($_POST['nombre'])
+                          );
         }
 
       } catch (Exception $error) {
