@@ -5,8 +5,6 @@ Programación orientada a objetos con la metodología modelo, vista y controlado
 
 Este es un proyecto en PHP utilizando la estructura modelo, vista y controlador, simula el funcionamiento de un foro básico.
 
-[Visita este link para ver la pagina web del proyecto](https://www.gabrielflores.cl/POO-MVC/ "Pagina principal POO-MVC")
-
 ### Requisitos
 
 **La versión mostrada es con la que se desarrollo el proyecto**
